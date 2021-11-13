@@ -7,19 +7,23 @@ def stages() {
         def repoUrl = "https://github.com/devopsort/products-service-example.git"
                                 
         def qa = load "/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy"
+        
 	} 
     stage ("Checkout") {
         checkout scm
+
     }
     stage ("Build") {
 		$qa.deployAppTEST()
+
     }
     stage ("Test") {
 		echo 'testing the application...'
+
     }
 	stage('Deploy in Test env') {
 		$qa.deployAppTEST()
-        }
+
     }
 }
 return this
