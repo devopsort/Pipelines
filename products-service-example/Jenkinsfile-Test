@@ -8,7 +8,7 @@ def stages() {
 		def gitCredentials = "CREDENTIAL_ID"
 		def repoUrl = "https://github.com/devopsort/products-service-example.git"
 					
-		$qa = load "/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy" 
+		qa = load "/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy" 
 
         }   
 		
@@ -17,7 +17,7 @@ def stages() {
     }
 
     stage ("Build") {
-		sh "\'$qa\'.deployAppTEST()"
+		sh "$qa.deployAppTEST()"
     }
 
     stage ("Test") {
