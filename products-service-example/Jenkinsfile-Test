@@ -3,7 +3,6 @@ def stages() {
 def qa
 
 pipeline {
-    stages {	
         stage("Init") {
             steps {
                 script {
@@ -41,7 +40,6 @@ pipeline {
 		steps {
             script {
 			    sh "${qa}.deployAppTEST()"
-                    }
                 }
             }
         }
