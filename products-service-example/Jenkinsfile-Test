@@ -1,3 +1,5 @@
+def qa
+
 def stages() {
 
     stage("Init") {
@@ -6,7 +8,7 @@ def stages() {
 		def gitCredentials = "CREDENTIAL_ID"
 		def repoUrl = "https://github.com/devopsort/products-service-example.git"
 					
-		//def test = load "/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy" 
+		$qa = load "/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy" 
 
         }   
 		
@@ -15,16 +17,17 @@ def stages() {
     }
 
     stage ("Build") {
-		echo "-------------------------------------------------------------------"
-        sh "${comandossh} ' docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} ./ac1cicd-${branchName} '"
+		sh "$qa.deployAppTEST()"
     }
 
     stage ("Test") {
 		echo 'testing the application...'
     }
 	
-	stage('Deploy in Test env') {
-        sh "${comandossh} 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
+	stage('Deploy in Test env') {  
+		steps {
+			sh "$qa.deployAppTEST()"
+            }
         }
 	}
 return this
