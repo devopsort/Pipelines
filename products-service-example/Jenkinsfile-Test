@@ -4,34 +4,24 @@ def qa
 
 pipeline {
         stage("Init") {
-                script {
-                    def comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo "
-                    def branchName = env.BRANCH_NAME
-                    def gitCredentials = "CREDENTIAL_ID"
-                    def repoUrl = "https://github.com/devopsort/products-service-example.git"
+            def comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo "
+            def branchName = env.BRANCH_NAME
+            def gitCredentials = "CREDENTIAL_ID"
+            def repoUrl = "https://github.com/devopsort/products-service-example.git"
                                 
-                    qa = load "/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy"
-        }   
+            qa = load "/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy"
 	} 
     stage ("Checkout") {
-            script {
                 checkout scm
-        }
     }
     stage ("Build") {
-            script {
 		        sh "${qa}.deployAppTEST()"
-        }
     }
     stage ("Test") {
-            script {
 		        echo 'testing the application...'
-        }
     }
 	stage('Deploy in Test env') {
-            script {
 			    sh "${qa}.deployAppTEST()"
-            }
         }
     }
 }
