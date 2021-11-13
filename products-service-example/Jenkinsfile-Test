@@ -14,7 +14,7 @@ def stages() {
 
     }
     stage ("Build") {
-		sh "$qa.deployAppTEST"
+		sh "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo ' docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${env.BRANCH_NAME} ./ac1cicd-${env.BRANCH_NAME} '"
 
     }
     stage ("Test") {
