@@ -3,7 +3,6 @@ def stages() {
 def qa
 
 pipeline {
-    agent { label "master" }
     stages {	
         stage("Init") {
             steps {
