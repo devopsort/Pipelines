@@ -14,7 +14,7 @@ def stages() {
 
     }
     stage ("Build") {
-		${qa}.deployAppTEST()
+		qa.deployAppTEST()
 
     }
     stage ("Test") {
@@ -22,7 +22,7 @@ def stages() {
 
     }
 	stage('Deploy in Test env') {
-		$qa.deployAppTEST()
+		qa.deployAppTEST()
 
     }
 }
