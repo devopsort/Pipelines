@@ -2,7 +2,6 @@ def test
 
 def stages() {
 
-	stages {
         stage("Init") {
             steps {
                 script {
@@ -37,5 +36,4 @@ def stages() {
             }
         }
 	}
-}
 return this
