@@ -17,11 +17,11 @@ def stages() {
     }
 
     stage ("Build") {
-		test.buildAppTEST()
+		sh "$test.buildAppTEST()"
     }
 
     stage ("Test") {
-		test.testApp()
+		sh "$test.testApp()"
     }
 	
 	stage('Deploy in Test env') {
@@ -29,7 +29,7 @@ def stages() {
             branchName = "Test"
         }            
 		steps {
-			test.deployAppTEST()
+			sh "$test.deployAppTEST()"
             }
         }
 	}
