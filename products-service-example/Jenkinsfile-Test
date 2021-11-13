@@ -1,0 +1,41 @@
+def test
+
+def stages() {
+
+	stages {
+        stage("Init") {
+            steps {
+                script {
+					def comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo "
+                    def branchName = env.BRANCH_NAME
+					def gitCredentials = "CREDENTIAL_ID"
+					def repoUrl = "https://github.com/devopsort/products-service-example.git"
+					
+					dev = load "script.groovy" 
+                    }
+                }
+        }
+		
+    stage ("Checkout") {
+        checkout scm
+    }
+
+    stage ("Build") {
+		test.buildAppTEST()
+    }
+
+    stage ("Test") {
+		test.testApp()
+    }
+	
+	stage('Deploy in Test env') {
+        when {
+            branchName = "Test"
+        }            
+		steps {
+			test.deployAppTEST()
+            }
+        }
+	}
+}
+return this
