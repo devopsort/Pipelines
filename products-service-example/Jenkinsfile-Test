@@ -14,7 +14,7 @@ def stages() {
 
     }
     stage ("Build") {
-		sh "${qa}.deployAppTEST()"
+		sh "$qa.deployAppTEST"
 
     }
     stage ("Test") {
