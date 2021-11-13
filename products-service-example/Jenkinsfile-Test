@@ -8,7 +8,7 @@ def stages() {
 		def gitCredentials = "CREDENTIAL_ID"
 		def repoUrl = "https://github.com/devopsort/products-service-example.git"
 					
-		def test = load "/var/jenkins_home/workspace/products-service-example_Test/script.groovy" 
+		def test = load "/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy" 
 
         }   
 		
