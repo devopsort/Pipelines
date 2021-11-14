@@ -21,9 +21,9 @@ pipeline {
         stage('CloneRepo') {
             steps {
                 echo "-------------------------------------------------------------------"
-                sh "${comandossh} ' rm -rf *.zip'"
-                sh "${comandossh} ' wget ${RepoURL}${params.Enviromnment}.zip'"
-                sh "${comandossh} ' unzip -o ${params.Enviromnment}.zip'"
+                sh "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo   ' rm -rf *.zip'"
+                sh "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo   ' wget ${RepoURL}${params.Enviromnment}.zip'"
+                sh "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo   ' unzip -o ${params.Enviromnment}.zip'"
             }
         }
         /*stage ("Checkout") {
