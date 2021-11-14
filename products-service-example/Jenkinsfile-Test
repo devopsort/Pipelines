@@ -33,7 +33,7 @@ pipeline {
         stage("Build") {
             steps {
                 script {
-                    test.buildAppTEST()
+                    sh "${test}.buildAppTEST()"
                 }
             }
         }
@@ -52,7 +52,7 @@ pipeline {
         stage("Deploy in Test env") {
             steps {
                 script {
-                    test.deployAppTEST()
+                    sh "${test}.deployAppTEST()"
                 }
             }
         }
