@@ -52,20 +52,22 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                if (ENV_NAME == 'Dev') {
+                script {
+                    if (ENV_NAME == 'Dev') {
                     
                     sh "${comandossh} 'docker run -d --name products-service-${ENV_NAME} -p 80:8080  127.0.0.1:5000/products-service:${ENV_NAME}'"
                 
-                } else if (ENV_NAME == 'Test') {
-                        
-                    sh "${comandossh} 'docker run -d --name products-service-${ENV_NAME} -p 81:8080  127.0.0.1:5000/products-service:${ENV_NAME}'"
-                
-                } else {
+                    } else if (ENV_NAME == 'Test') {
+                            
+                        sh "${comandossh} 'docker run -d --name products-service-${ENV_NAME} -p 81:8080  127.0.0.1:5000/products-service:${ENV_NAME}'"
+                    
+                    } else {
 
-                    sh "${comandossh} 'docker run -d --name products-service-${ENV_NAME} -p 82:8080  127.0.0.1:5000/products-service:${ENV_NAME}'"
-                        
-                    }
-                }    
+                        sh "${comandossh} 'docker run -d --name products-service-${ENV_NAME} -p 82:8080  127.0.0.1:5000/products-service:${ENV_NAME}'"
+
+                        }
+                    }     
+                }             
             }
         }
     }
