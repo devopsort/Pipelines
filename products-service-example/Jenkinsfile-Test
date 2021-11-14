@@ -32,7 +32,8 @@ pipeline {
         }*/
         stage("Build") {
             steps {
-                sh test.buildAppTEST()
+                echo "-------------------------------------------------------------------"
+                sh "${comandossh} ' docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} ./ac1cicd-${branchName} '"
             }
         }
         /*stage("test") {
@@ -49,7 +50,7 @@ pipeline {
         }*/
         stage("Deploy in Test env") {
             steps {
-                sh test.deployAppTEST()
+                sh "${comandossh} 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
             }
         }
     }
