@@ -12,7 +12,7 @@ pipeline {
         stage("Init") {
             steps {
                 script {
-                    comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@ec2-54-221-119-120.compute-1.amazonaws.com sudo "
+                    comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo "
                     //RepoURL = "https://github.com/devopsort/products-service-example/archive/refs/heads/"    //${RepoURL}
                     ENV_NAME = "${env.BRANCH_NAME}"
                     }
@@ -34,13 +34,13 @@ pipeline {
         stage('DockerBuild') {
             steps {
                 echo "-------------------------------------------------------------------"
-                sh "${comandossh} ' docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${ENV_NAME} ./ac1cicd-${ENV_NAME} '"
+                sh "${comandossh} 'docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${ENV_NAME} ./ac1cicd-${ENV_NAME} '"
             }
         }   
         stage('DockerRegistry') {
             steps {
                 echo "-------------------------------------------------------------------"
-                sh "${comandossh} '   docker push 127.0.0.1:5000/products-service:${ENV_NAME}'"
+                sh "${comandossh} 'docker push 127.0.0.1:5000/products-service:${ENV_NAME}'"
             }
         }  
 
