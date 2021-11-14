@@ -2,10 +2,10 @@ def test
 
 pipeline {
     agent any
-    parameters {
+    /*parameters {
         choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
         //booleanParam(name: 'executeTests', defaultValue: true, description: '')
-    }
+    }*/
     stages {
         stage("init") {
             steps {
@@ -32,9 +32,7 @@ pipeline {
         }*/
         stage("Build") {
             steps {
-                script {
-                    sh "${test}.buildAppTEST()"
-                }
+                    ${test}.buildAppTEST()
             }
         }
         /*stage("test") {
@@ -51,9 +49,7 @@ pipeline {
         }*/
         stage("Deploy in Test env") {
             steps {
-                script {
-                    sh "${test}.deployAppTEST()"
-                }
+                    ${test}.deployAppTEST()
             }
         }
     }
