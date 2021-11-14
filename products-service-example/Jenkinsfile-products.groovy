@@ -19,7 +19,7 @@ pipeline {
                 }
         }                
         stage('CloneRepo') {
-            node {
+            steps {
                 echo 'Pulling...' + ENV_NAME
                 checkout scm
             
