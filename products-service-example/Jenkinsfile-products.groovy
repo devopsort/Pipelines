@@ -12,7 +12,7 @@ pipeline {
         stage("Init") {
             steps {
                 script {
-                    comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo "
+                    comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@ec2-54-221-119-120.compute-1.amazonaws.com sudo "
                     //RepoURL = "https://github.com/devopsort/products-service-example/archive/refs/heads/"    //${RepoURL}
                     ENV_NAME = "${env.BRANCH_NAME}"
                     }
