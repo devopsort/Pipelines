@@ -24,12 +24,6 @@ pipeline {
                 checkout scm
             
             }
-           /* steps {
-                echo "-------------------------------------------------------------------"
-                sh "${comandossh} ' rm -rf *.zip'"
-                sh "${comandossh} ' wget ${RepoURL}${env.BRANCH_NAME}.zip'"
-                sh "${comandossh} ' unzip -o ${env.BRANCH_NAME}.zip'"
-            }*/
         }
         stage('DockerBuild') {
             steps {
