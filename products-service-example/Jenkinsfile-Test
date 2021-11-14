@@ -18,10 +18,18 @@ pipeline {
                 }
             }
         }
-        stage ("Checkout") {
+        stage('CloneRepo') {
+            steps {
+                echo "-------------------------------------------------------------------"
+                sh "${comandossh} ' rm -rf *.zip'"
+                sh "${comandossh} ' wget ${RepoURL}${params.Enviromnment}.zip'"
+                sh "${comandossh} ' unzip -o ${params.Enviromnment}.zip'"
+            }
+        }
+        /*stage ("Checkout") {
             checkout scm
 
-        }
+        }*/
         stage("Build") {
             steps {
                 script {
