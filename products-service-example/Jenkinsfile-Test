@@ -33,7 +33,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo "-------------------------------------------------------------------"
-                sh "${comandossh} ' docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} ./ac1cicd-${branchName} '"
+                sh "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo  'docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} ./ac1cicd-${branchName} '"
             }
         }
         /*stage("test") {
@@ -50,7 +50,7 @@ pipeline {
         }*/
         stage("Deploy in Test env") {
             steps {
-                sh "${comandossh} 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
+                sh "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
             }
         }
     }
