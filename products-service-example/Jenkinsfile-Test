@@ -7,7 +7,7 @@ pipeline {
         //booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }*/
     stages {
-        stage("init") {
+        stage("Init") {
             steps {
                 script {
                     def comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo "
