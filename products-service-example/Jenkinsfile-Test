@@ -1,5 +1,3 @@
-def test
-
 pipeline {
     agent any
     stages {
@@ -34,13 +32,13 @@ pipeline {
         stage("Build") {
             steps {
                 echo "-------------------------------------------------------------------"
-                sh "${params.comandossh} sudo  'docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${params.branchName} ./ac1cicd-${params.branchName} '"
+                sh "${comandossh} sudo  'docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName}'"
             }
         }
 
         stage("Deploy in Test env") {
             steps {
-                sh "${params.comandossh} sudo 'docker run -d --name products-service-${params.branchName} -p 81:8080  127.0.0.1:5000/products-service:${params.branchName}'"
+                sh "${comandossh} sudo 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
             }
         }
     }
