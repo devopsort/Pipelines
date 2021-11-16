@@ -17,7 +17,7 @@ pipeline {
 
         stage('CloneRepo') {
             steps {
-                echo 'Pulling...' + ${branchName}
+                echo 'Pulling...' + params.branchName
                 checkout scm
             
             }
