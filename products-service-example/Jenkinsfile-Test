@@ -4,10 +4,10 @@ pipeline {
         stage("Init") {
             steps {
                 script {
-                    def comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@172.31.25.112 sudo "
-                    def branchName = env.BRANCH_NAME
-                    def gitCredentials = "CREDENTIAL_ID"
-                    def repoUrl = "https://github.com/devopsort/products-service-example.git"
+                    comandossh = "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@172.31.25.112 sudo "
+                    branchName = env.BRANCH_NAME
+                    gitCredentials = "CREDENTIAL_ID"
+                    repoUrl = "https://github.com/devopsort/products-service-example.git"
                     //test = load load ("/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy")
                 }
             }
