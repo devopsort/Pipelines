@@ -15,30 +15,22 @@ pipeline {
 
         stage('CloneRepo') {
             steps {
-                echo 'Pulling...' + params.branchName
+                echo 'Pulling...' + branchName
                 checkout scm
             
             }
         }
-        /*stage('CloneRepo') {
-            steps {
-                echo "-------------------------------------------------------------------"
-                sh "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo   ' rm -rf *.zip'"
-                sh "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo   ' wget ${RepoURL}${params.Enviromnment}.zip'"
-                sh "ssh -i /var/jenkins_home/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo   ' unzip -o ${params.Enviromnment}.zip'"
-            }
-        }*/
 
         stage("Build") {
             steps {
                 echo "-------------------------------------------------------------------"
-                sh "${comandossh} sudo  'docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName}'"
+                sh "${comandossh} 'docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName}'"
             }
         }
 
         stage("Deploy in Test env") {
             steps {
-                sh "${comandossh} sudo 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
+                sh "${comandossh} 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
             }
         }
     }
