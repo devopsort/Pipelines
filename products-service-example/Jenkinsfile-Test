@@ -27,7 +27,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo "-------------------------------------------------------------------"
-                sh "${comandossh} 'cd ${env.WORKSPACE}; docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName}'"
+                sh "${comandossh} 'cd ${clonerepo}; docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName}'"
             }
         }
 
