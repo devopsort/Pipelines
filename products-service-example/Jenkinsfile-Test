@@ -16,8 +16,6 @@ pipeline {
         stage('CloneRepo') {
             steps {
                 echo 'Pulling...' + branchName
-                sh "rm -rf ${env.WORKSPACE}/products"
-                sh "mkdir ${env.WORKSPACE}/products"
                 checkout scm
             
             }
@@ -26,7 +24,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo "-------------------------------------------------------------------"
-                sh "${comandossh} 'cd ${env.WORKSPACE}/products; docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName}'"
+                sh "${comandossh} 'cd ${env.WORKSPACE}; docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName}'"
             }
         }
 
