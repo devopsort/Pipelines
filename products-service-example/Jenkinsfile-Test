@@ -16,6 +16,7 @@ pipeline {
         stage('CloneRepo') {
             steps {
                 echo 'Pulling...' + branchName
+                sh "rm -rf ${env.WORKSPACE}/products"
                 sh "mkdir ${env.WORKSPACE}/products"
                 checkout scm
             
