@@ -4,7 +4,7 @@ pipeline {
         stage("Init") {
             steps {
                 script {
-                    comandossh = "ssh ec2-user@172.31.25.112 sudo "
+                    comandossh = "ssh ec2-user@172.31.25.112 "
                     branchName = env.BRANCH_NAME
                     gitCredentials = "products-git"
                     repoUrl = "https://github.com/devopsort/products-service-example.git"
@@ -27,7 +27,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo "-------------------------------------------------------------------"
-                sh "${comandossh} 'cd ${clonerepo}; docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName}'"
+                sh "${comandossh} 'cd ${clonerepo}; sudo docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName}'"
             }
         }
 
