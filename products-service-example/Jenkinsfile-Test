@@ -6,7 +6,7 @@ pipeline {
                 script {
                     comandossh = "ssh ec2-user@172.31.25.112 sudo "
                     branchName = env.BRANCH_NAME
-                    gitCredentials = "CREDENTIAL_ID"
+                    gitCredentials = "products-git"
                     repoUrl = "https://github.com/devopsort/products-service-example.git"
                     //test = load load ("/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy")
                 }
@@ -16,7 +16,7 @@ pipeline {
         stage('CloneRepo') {
             steps {
                 echo 'Pulling...' + branchName
-                checkout scm
+                git branch: '${branchName}', credentialsId: '${gitCredentials}', url: '${repoUrl}'
             
             }
         }
