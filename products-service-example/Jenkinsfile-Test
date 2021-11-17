@@ -16,7 +16,9 @@ pipeline {
         stage('CloneRepo') {
             steps {
                 echo 'Pulling...' + branchName
-                git branch: "${branchName}", credentialsId: "${gitCredentials}", url: "${repoUrl}"
+
+                sh "git clone -v ${branchName} ${repoUrl} ${env.WORKSPACE}"
+                //git branch: "${branchName}", credentialsId: "${gitCredentials}", url: "${repoUrl}"
             
             }
         }
