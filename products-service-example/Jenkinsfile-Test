@@ -19,7 +19,6 @@ pipeline {
                     repoUrl = "${GIT_URL}"
                     clonerepo = "${WORKSPACE}/products"
                     Ec2_WORKSPACE = "/var/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
-                    sh "echo PROBANDO PIPELINE"
                     //clonerepo = "/var/jenkins_home/workspace/products-service-example/products"
                     //test = load load ("/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy")
                 }
