@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+    stages {
+        stage("Init") {
+            steps {
+                script {
+                    load ("/tmp/variables.var")
+                    comandossh = "ssh ec2-user@172.31.25.112 sudo "
+                    if("${GIT_BRANCH}" == "origin/Dev") {
+                        branchName = "Dev"
+                    } 
+                    if("${GIT_BRANCH}" == "origin/Test") { 
+                       branchName = "Test"
+                    } 
+                    if("${GIT_BRANCH}" == "origin/Prod") { 
+                       branchName = "Prod"
+                    }
+                    gitCredentials = "products-git"
+                    repoUrl = "${GIT_URL}"
+                    clonerepo = "${WORKSPACE}/products"
+                    Ec2_WORKSPACE = "/var/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
+                    //clonerepo = "/var/jenkins_home/workspace/products-service-example/products"
+                    //test = load load ("/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy")
+                }
+            }
+        }
+
+        stage('CloneRepo') {
+            steps {
+                echo 'Pulling...' + branchName
+                sh "rm -rf ${clonerepo}"
+                sh "git clone -b ${branchName} ${repoUrl} ${clonerepo}"
+                //git branch: "${branchName}", credentialsId: "${gitCredentials}", url: "${repoUrl}"
+            
+            }
+        }
+
+        stage("Build") {
+            steps {
+                echo "-------------------------------------------------------------------"
+                //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; sudo docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} .'"
+                sh "${comandossh} 'docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} ${Ec2_WORKSPACE}'"
+            }
+        }
+
+       /* stage("Deploy in Test env") {
+            steps {
+                sh "${comandossh} 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
+            }
+        }*/
+    }
+}
