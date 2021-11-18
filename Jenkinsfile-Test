@@ -15,6 +15,11 @@ pipeline {
                     if("${GIT_BRANCH}" == "origin/Prod") { 
                        branchName = "Prod"
                     }
+                    if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git") { 
+                       ms-jar = "orders-service-example.jar"
+                    }
+
+
                     gitCredentials = "products-git"
                     repoUrl = "${GIT_URL}"
                     clonerepo = "${WORKSPACE}/products"
