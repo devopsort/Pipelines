@@ -15,16 +15,11 @@ pipeline {
                     if("${GIT_BRANCH}" == "origin/Prod") { 
                        branchName = "Prod"
                     }
-                    if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git") { 
-                       ms-jar = "orders-service-example.jar"
-                    }
-
-
+                    
                     gitCredentials = "products-git"
                     repoUrl = "${GIT_URL}"
                     clonerepo = "${WORKSPACE}/products"
                     Ec2_WORKSPACE = "/var/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
-                    sh "echo PROBANDO PIPELINE"
                     //clonerepo = "/var/jenkins_home/workspace/products-service-example/products"
                     //test = load load ("/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy")
                 }
@@ -43,6 +38,83 @@ pipeline {
 
         stage("Build") {
             steps {
+                if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git" && "${branchName}" == "Dev") { 
+                       ms-jar = "orders-service-example.jar"
+                       
+                    echo "Update Microservicio Orders Dev"
+                    //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; sudo docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} .'"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/orders-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git" && "${branchName}" == "Test") { 
+                       
+                    echo "Update Microservicio Orders Test"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/orders-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git" && "${branchName}" == "Prod") { 
+                       
+                    echo "Update Microservicio Orders Prod"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/orders-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/products-service-example.git" && "${branchName}" == "Dev") { 
+                       ms-jar = "products-service-example.jar"
+                       
+                    echo "Update Microservicio Products Dev"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/products-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/products-service-example.git" && "${branchName}" == "Test") { 
+                       
+                    echo "Update Microservicio Products Test"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/products-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/products-service-example.git" && "${branchName}" == "Prod") { 
+                       
+                    echo "Update Microservicio Products Prod"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/products-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git" && "${branchName}" == "Dev") { 
+                       ms-jar = "shipping-service-example.jar"
+                       
+                    echo "Update Microservicio Shipping Dev"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/shipping-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git" && "${branchName}" == "Test") { 
+                       
+                    echo "Update Microservicio Shipping Test"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/shipping-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git" && "${branchName}" == "Prod") { 
+                       
+                    echo "Update Microservicio Shipping Prod"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/shipping-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/payments-service-example.git" && "${branchName}" == "Dev") { 
+                       ms-jar = "payments-service-example.jar"
+                       
+                    echo "Update Microservicio Payments Dev"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/payments-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/payments-service-example.git" && "${branchName}" == "Test") { 
+                       
+                    echo "Update Microservicio Payments Test"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/payments-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                } else if("${GIT_URL}" == "https://github.com/devopsort/payments-service-example.git" && "${branchName}" == "Prod") { 
+                       
+                    echo "Update Microservicio Payments Prod"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/payments-service:${branchName} ${Ec2_WORKSPACE}'"
+
+                }
+
+
+
+
+
+
+
+
+
+
+
                 echo "-------------------------------------------------------------------"
                 //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; sudo docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} .'"
                 sh "${comandossh} 'docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} ${Ec2_WORKSPACE}'"
