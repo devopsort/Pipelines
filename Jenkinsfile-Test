@@ -104,20 +104,6 @@ pipeline {
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/payments-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 }
-
-
-
-
-
-
-
-
-
-
-
-                echo "-------------------------------------------------------------------"
-                //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; sudo docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} .'"
-                sh "${comandossh} 'docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} ${Ec2_WORKSPACE}'"
             }
         }
 
