@@ -233,7 +233,68 @@ pipeline {
 
        /* stage("Deploy Microservicio") {
             steps {
-                sh "${comandossh} 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
+                script {
+                    if("${ms_name}" == "Orders" && "${branchName}" == "Dev") {
+                        
+                        
+                        
+                    } 
+                    if("${ms_name}" == "Orders" && "${branchName}" == "Test") { 
+                        
+                        
+
+                    } 
+                    if("${ms_name}" == "Orders" && "${branchName}" == "Prod") { 
+                        
+                        
+
+                    } 
+                    if("${ms_name}" == "Products" && "${branchName}" == "Dev") {
+                        
+                        
+
+                    } 
+                    if("${ms_name}" == "Products" && "${branchName}" == "Test") { 
+                        
+                        
+
+                    }
+                    if("${ms_name}" == "Products" && "${branchName}" == "Prod") {
+                        
+                        
+
+                    }
+                    if("${ms_name}" == "Shipping" && "${branchName}" == "Dev") {
+                        
+                        
+
+                    }
+                    if("${ms_name}" == "Shipping" && "${branchName}" == "Test") {
+                        
+                        
+
+                    }
+                    if("${ms_name}" == "Shipping" && "${branchName}" == "Prod") {
+                        
+                        
+
+                    }
+                    if("${ms_name}" == "Payments" && "${branchName}" == "Dev") {
+                        
+                        
+
+                    }
+                    if("${ms_name}" == "Payments" && "${branchName}" == "Test") {
+                        
+                        
+
+                    }
+                    if("${ms_name}" == "Payments" && "${branchName}" == "Prod") {
+                        
+                       
+                    }
+
+                }
             }
         }*/
     }
