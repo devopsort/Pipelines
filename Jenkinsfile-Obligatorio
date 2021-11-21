@@ -21,18 +21,22 @@ pipeline {
                     if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git") { 
                        ms-jar = "orders-service-example.jar"
                        ms_orders = "Orders"
+                       ECR_NAME = "orders-service"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/products-service-example.git") { 
                        ms-jar = "products-service-example.jar"
                        ms_products = "Products"
+                       ECR_NAME = "products-service"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git") { 
                        ms-jar = "shipping-service-example.jar"
                        ms_shipping = "Shipping"
+                       ECR_NAME = "shipping-service"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/payments-service-example.git") { 
                        ms-jar = "payments-service-example.jar"
                        ms_payments = "Payments"
+                       ECR_NAME = "payments-service"
                     }
 
                     
@@ -84,13 +88,13 @@ pipeline {
                        
                     echo "Building the docker Microservicio Products Test"
                     sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"
-                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 407689691491.dkr.ecr.us-east-1.amazonaws.com/products-service:${branchName} ${Ec2_WORKSPACE}'"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t ${ms_products}:${IMAGEN_TAG} ${Ec2_WORKSPACE}'"
                     
-                    sh "docker tag 127.0.0.1:5000/products-service 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ms_products}:${IMAGEN_TAG}"
+                    sh "docker tag ${ms_products}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}"
                     echo "Building completed ....."
                     echo "Pushing the docker images ...."
 
-                    sh "docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ms_products}:${IMAGEN_TAG}"
+                    sh "docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}"
 
                 } else if("${ms_products}" == "Products" && "${branchName}" == "Prod") { 
                        
