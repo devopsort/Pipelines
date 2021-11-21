@@ -4,6 +4,10 @@ pipeline {
         stage("Init") {
             steps {
                 script {
+                    PROFILE_NAME = "[default]"     
+                    PROFILE_AWS_ACCES_KEY = "ASIAV53BTAFRUJV5FZ7D"
+                    PROFILE_AWS_KEY_ID = "rMEbxho5IGK3pVAn4jL/288RRGcB6TZ9Z9bd1fN1"
+                    PROFILE_AWS_SECRET = "FwoGZXIvYXdzEFQaDMmpfl3kGqkcC00nrSLFAdPLCKq19Tp8ag/q8KWV6SOcl3ZKts6IuHOTWreqE3Rm/+s9rf4XWb04ffBcPTzvQE4jL0FpfEOc8jya5W0s/Uow1yIc66CEkCtSWKesi/ZMPXYG3jv1QsokZv9hzZCjG+1rVLKN2dqRfgTUT+6dgCSwMi9+MqOkIfkMx1slqPmKWBVW9NUHE1gyL9Jn3HjCqmziTzZWFPxw8SmE461Po2Kly4eUojkp729Dafuj8vPaVaVx9AD/0+MePUqRfbyCknM/WGGdKIff5owGMi1pn8DOZV0pye6xl2Na0GI7KmrwxtPZCqvADFhgipbz4Wa2uV9nkUg/0G0s/UQ="
                     load ("/tmp/variables.var")
                     comandossh = "ssh ec2-user@172.31.25.112 sudo "
                     if("${GIT_BRANCH}" == "origin/Dev") {
@@ -38,7 +42,11 @@ pipeline {
                        ms_name = "Payments"
                        ECR_NAME = "payments-service"
                     }
-
+                    sh "mkdir -p ~/.aws/"
+                    sh "echo ${PROFILE_NAME} >> ~/.aws/credentials"
+                    sh "echo ${PROFILE_AWS_ACCES_KEY} >> ~/.aws/credentials"
+                    sh "echo ${PROFILE_AWS_KEY_ID} >> ~/.aws/credentials"
+                    sh "echo ${PROFILE_AWS_SECRET} >> ~/.aws/credentials"
                     
                     gitCredentials = "products-git"
                     repoUrl = "${GIT_URL}"
