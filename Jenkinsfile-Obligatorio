@@ -100,7 +100,7 @@ pipeline {
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '"aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        sh "${comandossh} ${Ec2_WORKSPACE}"
+                        sh "${comandossh} 'cd ${Ec2_WORKSPACE}'"
                         sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
                         
                         sh "docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}"
