@@ -8,12 +8,15 @@ pipeline {
                     comandossh = "ssh ec2-user@172.31.25.112 sudo "
                     if("${GIT_BRANCH}" == "origin/Dev") {
                         branchName = "Dev"
+                        IMAGEN_TAG = "dev"
                     } 
                     if("${GIT_BRANCH}" == "origin/Test") { 
                        branchName = "Test"
+                       IMAGEN_TAG = "test"
                     } 
                     if("${GIT_BRANCH}" == "origin/Prod") { 
                        branchName = "Prod"
+                       IMAGEN_TAG = "prod"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git") { 
                        ms-jar = "orders-service-example.jar"
@@ -55,72 +58,80 @@ pipeline {
 
         stage("Build") {
             steps {
+                
                 if("${ms_orders}" == "Orders" && "${branchName}" == "Dev") { 
                        
-                    echo "Update Microservicio Orders Dev"
+                    echo "Building the docker Microservicio Orders Dev"
                     //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; sudo docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} .'"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/orders-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_orders}" == "Orders" && "${branchName}" == "Test") { 
                        
-                    echo "Update Microservicio Orders Test"
+                    echo "Building the docker Microservicio Orders Test"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/orders-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_orders}" == "Orders" && "${branchName}" == "Prod") { 
                        
-                    echo "Update Microservicio Orders Prod"
+                    echo "Building the docker Microservicio Orders Prod"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/orders-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_products}" == "Products" && "${branchName}" == "Dev") { 
                        
-                    echo "Update Microservicio Products Dev"
+                    echo "Building the docker Microservicio Products Dev"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/products-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_products}" == "Products" && "${branchName}" == "Test") { 
                        
-                    echo "Update Microservicio Products Test"
-                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/products-service:${branchName} ${Ec2_WORKSPACE}'"
+                    echo "Building the docker Microservicio Products Test"
+                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"
+                    sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 407689691491.dkr.ecr.us-east-1.amazonaws.com/products-service:${branchName} ${Ec2_WORKSPACE}'"
+                    
+                    sh "docker tag 127.0.0.1:5000/products-service 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ms_products}:${IMAGEN_TAG}"
+                    echo "Building completed ....."
+                    echo "Pushing the docker images ...."
+
+                    sh "docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ms_products}:${IMAGEN_TAG}"
 
                 } else if("${ms_products}" == "Products" && "${branchName}" == "Prod") { 
                        
-                    echo "Update Microservicio Products Prod"
+                    echo "Building the docker Microservicio Products Prod"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/products-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_shipping}" == "Shipping" && "${branchName}" == "Dev") { 
                        
-                    echo "Update Microservicio Shipping Dev"
+                    echo "Building the docker Microservicio Shipping Dev"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/shipping-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_shipping}" == "Shipping" && "${branchName}" == "Test") { 
                        
-                    echo "Update Microservicio Shipping Test"
+                    echo "Building the docker Microservicio Shipping Test"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/shipping-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_shipping}" == "Shipping" && "${branchName}" == "Prod") { 
                        
-                    echo "Update Microservicio Shipping Prod"
+                    echo "Building the docker Microservicio Shipping Prod"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/shipping-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_payments}" == "Payments" && "${branchName}" == "Dev") { 
                        
-                    echo "Update Microservicio Payments Dev"
+                    echo "Building the docker Microservicio Payments Dev"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/payments-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_payments}" == "Payments" && "${branchName}" == "Test") { 
                        
-                    echo "Update Microservicio Payments Test"
+                    echo "Building the docker Microservicio Payments Test"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/payments-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 } else if("${ms_payments}" == "Payments" && "${branchName}" == "Prod") { 
                        
-                    echo "Update Microservicio Payments Prod"
+                    echo "Building the docker Microservicio Payments Prod"
                     sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms-jar} -t 127.0.0.1:5000/payments-service:${branchName} ${Ec2_WORKSPACE}'"
 
                 }
             }
         }
 
-       /* stage("Deploy in Test env") {
+       /* stage("Deploy Microservicio") {
             steps {
                 sh "${comandossh} 'docker run -d --name products-service-${branchName} -p 81:8080  127.0.0.1:5000/products-service:${branchName}'"
             }
