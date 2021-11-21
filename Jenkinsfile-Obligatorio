@@ -19,22 +19,22 @@ pipeline {
                        IMAGEN_TAG = "prod"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git") { 
-                       def ms-jar = "orders-service-example.jar"
+                       ms_jar = "orders-service-example.jar"
                        ms_orders = "Orders"
                        ECR_NAME = "orders-service"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/products-service-example.git") { 
-                       def ms-jar = "products-service-example.jar"
+                       ms_jar = "products-service-example.jar"
                        ms_products = "Products"
                        ECR_NAME = "products-service"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git") { 
-                       def ms-jar = "shipping-service-example.jar"
+                       ms_jar = "shipping-service-example.jar"
                        ms_shipping = "Shipping"
                        ECR_NAME = "shipping-service"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/payments-service-example.git") { 
-                       def ms-jar = "payments-service-example.jar"
+                       ms_jar = "payments-service-example.jar"
                        ms_payments = "Payments"
                        ECR_NAME = "payments-service"
                     }
