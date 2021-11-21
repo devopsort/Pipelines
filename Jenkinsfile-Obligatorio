@@ -99,8 +99,7 @@ pipeline {
                     if("${ms_name}" == "Products" && "${branchName}" == "Test") { 
                         
                         echo "Building the docker Microservicio Products Test"
-                        sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}'"
+                        //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
                         //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
                         
                         sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
