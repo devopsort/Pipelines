@@ -4,10 +4,10 @@ pipeline {
         stage("Init") {
             steps {
                 script {
-                    //PROFILE_NAME = "[default]"     
-                    //PROFILE_AWS_ACCES_KEY = ""
-                    //PROFILE_AWS_KEY_ID = ""
-                    //PROFILE_AWS_SECRET = ""
+                    PROFILE_NAME = "[default]"     
+                    PROFILE_AWS_ACCES_KEY = "qwewqeqe"
+                    PROFILE_AWS_KEY_ID = "qweqweqweqwe"
+                    PROFILE_AWS_SECRET = "qweqeqweqweqwe"
                     load ("/tmp/variables.var")
                     comandossh = "ssh ec2-user@172.31.25.112 sudo "
                     if("${GIT_BRANCH}" == "origin/Dev") {
@@ -42,11 +42,11 @@ pipeline {
                        ms_name = "Payments"
                        ECR_NAME = "payments-service"
                     }
-                    //sh "mkdir -p ~/.aws/"
-                    //sh "echo ${PROFILE_NAME} >> ~/.aws/credentials"
-                    //sh "echo ${PROFILE_AWS_ACCES_KEY} >> ~/.aws/credentials"
-                    //sh "echo ${PROFILE_AWS_KEY_ID} >> ~/.aws/credentials"
-                    //sh "echo ${PROFILE_AWS_SECRET} >> ~/.aws/credentials"
+                    sh "${comandossh} mkdir -p ~/.aws/"
+                    sh "${comandossh} echo ${PROFILE_NAME} >> ~/.aws/credentials"
+                    sh "${comandossh} echo ${PROFILE_AWS_ACCES_KEY} >> ~/.aws/credentials"
+                    sh "${comandossh} echo ${PROFILE_AWS_KEY_ID} >> ~/.aws/credentials"
+                    sh "${comandossh} echo ${PROFILE_AWS_SECRET} >> ~/.aws/credentials"
                     
                     gitCredentials = "products-git"
                     repoUrl = "${GIT_URL}"
@@ -67,7 +67,7 @@ pipeline {
             
             }
         }
-
+/*
         stage("Build") {
             steps {
                 script {
@@ -229,7 +229,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
        /* stage("Deploy Microservicio") {
             steps {
