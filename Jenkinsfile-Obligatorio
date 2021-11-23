@@ -43,10 +43,10 @@ pipeline {
                        ECR_NAME = "payments-service"
                     }
                     sh "${comandossh} mkdir -p /home/ec2-user/.aws/"
-                    sh "${comandossh} echo ${PROFILE_NAME} >> ~/.aws/credentials"
-                    sh "${comandossh} echo ${PROFILE_AWS_ACCES_KEY} >> ~/.aws/credentials"
-                    sh "${comandossh} echo ${PROFILE_AWS_KEY_ID} >> ~/.aws/credentials"
-                    sh "${comandossh} echo ${PROFILE_AWS_SECRET} >> ~/.aws/credentials"
+                    sh "${comandossh} echo ${PROFILE_NAME} >> /home/ec2-user/.aws/credentials"
+                    sh "${comandossh} echo ${PROFILE_AWS_ACCES_KEY} >> /home/ec2-user/.aws/credentials"
+                    sh "${comandossh} echo ${PROFILE_AWS_KEY_ID} >> /home/ec2-user/.aws/credentials"
+                    sh "${comandossh} echo ${PROFILE_AWS_SECRET} >> /home/ec2-user/.aws/credentials"
                     
                     gitCredentials = "products-git"
                     repoUrl = "${GIT_URL}"
