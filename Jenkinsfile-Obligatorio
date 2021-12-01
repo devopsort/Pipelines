@@ -9,38 +9,45 @@ pipeline {
                     PROFILE_AWS_KEY_ID = "qweqweqweqwe"
                     PROFILE_AWS_SECRET = "qweqeqweqweqwe"
                     load ("/tmp/variables.var")
-                    comandossh = "ssh ec2-user@172.31.25.112 sudo "
+                    comandossh = "ssh ec2-user@JenkinsDockerTF sudo "
                     if("${GIT_BRANCH}" == "origin/Dev") {
                         branchName = "Dev"
                         IMAGEN_TAG = "dev"
+                        version = "${BUILD_NUMBER}"
                     } 
                     if("${GIT_BRANCH}" == "origin/Test") { 
                        branchName = "Test"
                        IMAGEN_TAG = "test"
+                       version = "${BUILD_NUMBER}"
                     } 
                     if("${GIT_BRANCH}" == "origin/Prod") { 
                        branchName = "Prod"
                        IMAGEN_TAG = "prod"
+                       version = "${BUILD_NUMBER}"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git") { 
                        ms_jar = "orders-service-example.jar"
                        ms_name = "Orders"
                        ECR_NAME = "orders-service"
+                       registry = ""
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/products-service-example.git") { 
                        ms_jar = "products-service-example.jar"
                        ms_name = "Products"
                        ECR_NAME = "products-service"
+                       registry = "929101074843.dkr.ecr.us-east-1.amazonaws.com"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git") { 
                        ms_jar = "shipping-service-example.jar"
                        ms_name = "Shipping"
                        ECR_NAME = "shipping-service"
+                       registry = ""
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/payments-service-example.git") { 
                        ms_jar = "payments-service-example.jar"
                        ms_name = "Payments"
                        ECR_NAME = "payments-service"
+                       registry = ""
                     }
                     /*
                     sh "${comandossh} rm -rf  /home/ec2-user/.aws/"
@@ -81,156 +88,146 @@ pipeline {
                         //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; sudo docker build --build-arg JAR_FILE=products-service-example.jar -t 127.0.0.1:5000/products-service:${branchName} .'"
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        //sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${IMAGEN_TAG}'"
                         
                     } 
                     if("${ms_name}" == "Orders" && "${branchName}" == "Test") { 
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${IMAGEN_TAG}'"
 
                     } 
                     if("${ms_name}" == "Orders" && "${branchName}" == "Prod") { 
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
 
                     } 
                     if("${ms_name}" == "Products" && "${branchName}" == "Dev") {
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
 
                     } 
                     if("${ms_name}" == "Products" && "${branchName}" == "Test") { 
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
 
                     }
                     if("${ms_name}" == "Products" && "${branchName}" == "Prod") {
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
 
                     }
                     if("${ms_name}" == "Shipping" && "${branchName}" == "Dev") {
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
 
                     }
                     if("${ms_name}" == "Shipping" && "${branchName}" == "Test") {
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
 
                     }
                     if("${ms_name}" == "Shipping" && "${branchName}" == "Prod") {
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
 
                     }
                     if("${ms_name}" == "Payments" && "${branchName}" == "Dev") {
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
 
                     }
                     if("${ms_name}" == "Payments" && "${branchName}" == "Test") {
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
                         sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
 
                     }
                     if("${ms_name}" == "Payments" && "${branchName}" == "Prod") {
                         
                         echo "Building the docker Microservicio Products Test"
                         //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${ECR_NAME}:${IMAGEN_TAG} .'"
+                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
-                        sh "${comandossh} 'docker tag ${ECR_NAME}:${IMAGEN_TAG} 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
                         echo "Building completed ....."
                         
                         echo "Pushing the docker images ...."
-                        sh "${comandossh} 'docker push 407689691491.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}:${IMAGEN_TAG}'"
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
                     }
                 }
             }
