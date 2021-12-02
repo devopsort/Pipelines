@@ -35,6 +35,7 @@ pipeline {
                        argocd_name = "Orders_ArgoCD"
                        ECR_NAME = "orders-service"
                        registry = ""
+                       login_registry = ""
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/products-service-example.git") { 
                        ms_jar = "products-service-example.jar"
@@ -42,6 +43,7 @@ pipeline {
                        argocd_name = "Products_ArgoCD"
                        ECR_NAME = "products-service"
                        registry = "929101074843.dkr.ecr.us-east-1.amazonaws.com"
+                       login_registry = "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 929101074843.dkr.ecr.us-east-1.amazonaws.com"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git") { 
                        ms_jar = "shipping-service-example.jar"
@@ -49,6 +51,7 @@ pipeline {
                        argocd_name = "Shipping_ArgoCD"
                        ECR_NAME = "shipping-service"
                        registry = ""
+                       login_registry = ""
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/payments-service-example.git") { 
                        ms_jar = "payments-service-example.jar"
@@ -56,6 +59,7 @@ pipeline {
                        argocd_name = "Payments_ArgoCD"
                        ECR_NAME = "payments-service"
                        registry = ""
+                       login_registry = ""
                     }
                     /*
                     sh "${comandossh} rm -rf  /home/ec2-user/.aws/"
@@ -74,7 +78,6 @@ pipeline {
                     clonerepo_argo = "${WORKSPACE}/${argocd_name}"
                     Ec2_WORKSPACE = "/var/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
                     //clonerepo = "/var/jenkins_home/workspace/products-service-example/products"
-                    //test = load load ("/var/jenkins_home/workspace/products-service-example_Test/products-service-example/script.groovy")
                 }
             }
         }
@@ -145,7 +148,7 @@ pipeline {
                     if("${ms_name}" == "Products" && "${branchName}" == "Test") { 
                         
                         echo "Building the docker Microservicio Products Test"
-                        //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
+                        sh "${comandossh} ${login_registry}"
                         //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
                         echo "Building completed ....."
@@ -157,7 +160,7 @@ pipeline {
                     if("${ms_name}" == "Products" && "${branchName}" == "Prod") {
                         
                         echo "Building the docker Microservicio Products Test"
-                        //sh '${comandossh} "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"'
+                        sh "${comandossh} ${login_registry}"
                         //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
                         echo "Building completed ....."
