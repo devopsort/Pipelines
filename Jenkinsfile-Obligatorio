@@ -80,7 +80,7 @@ pipeline {
                     repoUrl = "${GIT_URL}"
                     clonerepo = "${WORKSPACE}/${ms_name}"
                     clonerepo_argo = "${WORKSPACE}/${argocd_name}"
-                    Ec2_WORKSPACE = "/home/jenkins_home/${ms_name}"
+                    //Ec2_WORKSPACE = "/home/jenkins_home/${ms_name}"
                     //Ec2_WORKSPACE = "/home/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
                     //clonerepo = "/var/jenkins_home/workspace/products-service-example/products"
                 }
@@ -96,7 +96,7 @@ pipeline {
             
             }
         }
-/*
+
         stage("Build") {
             steps {
                 script {
@@ -154,7 +154,7 @@ pipeline {
                         
                         echo "Building the docker Microservicio Products Test"
                         sh "${comandossh} ${login_registry}"
-                        sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
+                        sh "${comandossh} 'cd ${clonerepo}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
                         echo "Building completed ....."
                         
@@ -248,9 +248,9 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
 
-       /* stage("Deploy Microservicio") {
+        stage("Deploy Microservicio") {
             steps {
                 script {
                     if("${ms_name}" == "Orders" && "${branchName}" == "Dev") {
@@ -328,6 +328,6 @@ pipeline {
 
                 }
             }
-        }*/
+        }
     }
 }
