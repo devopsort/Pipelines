@@ -11,9 +11,9 @@ pipeline {
                     load ("/tmp/variables.var")
                     comandossh = "ssh -i /tmp/Ec2-ssh-key.pem ec2-user@JenkinsDockerTF sudo "
                     argocd_product_repo = "https://github.com/devopsort/argocd_products-service-example.git"
-                    argocd_orders_repo = ""
-                    argocd_shipping_repo = ""
-                    argocd_payments_repo = ""
+                    argocd_orders_repo = "https://github.com/devopsort/argocd_orders-service-example.git"
+                    argocd_shipping_repo = "https://github.com/devopsort/argocd_shipping-service-example.git"
+                    argocd_payments_repo = "https://github.com/devopsort/argocd_payments-service-example.git"
                     if("${GIT_BRANCH}" == "origin/Dev") {
                         branchName = "Dev"
                         IMAGEN_TAG = "dev"
@@ -34,6 +34,7 @@ pipeline {
                        ms_name = "Orders"
                        argocd_name = "Orders_ArgoCD"
                        ECR_NAME = "orders-service"
+                       argocd_git = "argocd_orders-service-example"
                        registry = ""
                        login_registry = ""
                     }
@@ -42,6 +43,7 @@ pipeline {
                        ms_name = "Products"
                        argocd_name = "Products_ArgoCD"
                        ECR_NAME = "products-service"
+                       argocd_git = "argocd_products-service-example"
                        registry = "929101074843.dkr.ecr.us-east-1.amazonaws.com"
                        login_registry = "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 929101074843.dkr.ecr.us-east-1.amazonaws.com"
                     }
@@ -50,6 +52,7 @@ pipeline {
                        ms_name = "Shipping"
                        argocd_name = "Shipping_ArgoCD"
                        ECR_NAME = "shipping-service"
+                       argocd_git = "argocd_shipping-service-example"
                        registry = ""
                        login_registry = ""
                     }
@@ -58,6 +61,7 @@ pipeline {
                        ms_name = "Payments"
                        argocd_name = "Payments_ArgoCD"
                        ECR_NAME = "payments-service"
+                       argocd_git = "argocd_payments-service-example"
                        registry = ""
                        login_registry = ""
                     }
@@ -277,7 +281,7 @@ pipeline {
                         echo 'Remplazando variables en el yml...'
 
                         sh "${comandossh} mv ${clonerepo_argo}/argocd_products-service-example/products-service-example.yml_ORIGINAL ${clonerepo_argo}/argocd_products-service-example/products-service-example.yml"
-                        sh "${comandossh} sed -i 's~${BaseDatos}~${BaseDatos}_${VersionActual}~g' ${clonerepo_argo}/argocd_products-service-example/products-service-example.yml"
+                        sh "${comandossh} sed -i 's~${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}~$container_images~g' ${clonerepo_argo}/${argocd_gi}/products-service-example.yml"
 
                         echo 'Subiendo cambios del yml...'
 
