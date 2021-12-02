@@ -76,7 +76,7 @@ pipeline {
                     sh "${comandossh} mv /home/ec2-user/credentials /home/ec2-user/.aws/"
                     */
                     
-                    gitCredentials = "products-git"
+                    gitCredentials = "obligatorio-git"
                     repoUrl = "${GIT_URL}"
                     clonerepo = "${WORKSPACE}/${ms_name}"
                     clonerepo_argo = "${WORKSPACE}/${argocd_name}"
