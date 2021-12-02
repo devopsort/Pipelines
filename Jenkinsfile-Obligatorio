@@ -44,8 +44,8 @@ pipeline {
                        argocd_name = "Products_ArgoCD"
                        ECR_NAME = "products-service"
                        argocd_git = "argocd_products-service-example"
-                       registry = "929101074843.dkr.ecr.us-east-1.amazonaws.com"
-                       login_registry = "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 929101074843.dkr.ecr.us-east-1.amazonaws.com"
+                       registry = "473718918692.dkr.ecr.us-east-1.amazonaws.com"
+                       login_registry = "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 473718918692.dkr.ecr.us-east-1.amazonaws.com"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git") { 
                        ms_jar = "shipping-service-example.jar"
@@ -80,7 +80,8 @@ pipeline {
                     repoUrl = "${GIT_URL}"
                     clonerepo = "${WORKSPACE}/${ms_name}"
                     clonerepo_argo = "${WORKSPACE}/${argocd_name}"
-                    Ec2_WORKSPACE = "/var/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
+                    Ec2_WORKSPACE = "/home/jenkins_home/${ms_name}"
+                    //Ec2_WORKSPACE = "/home/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
                     //clonerepo = "/var/jenkins_home/workspace/products-service-example/products"
                 }
             }
@@ -153,7 +154,7 @@ pipeline {
                         
                         echo "Building the docker Microservicio Products Test"
                         sh "${comandossh} ${login_registry}"
-                        //sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
+                        sh "${comandossh} 'cd ${Ec2_WORKSPACE}; docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
                         
                         echo "Building completed ....."
                         
