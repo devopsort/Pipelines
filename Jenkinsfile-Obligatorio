@@ -278,14 +278,14 @@ pipeline {
 
                         echo 'Remplazando variables en el yml...'
 
-                        sh "${comandossh} mv ${clonerepo_argo}/${argocd_git}/deployment.yml_ORIGINAL ${clonerepo_argo}/${argocd_git}/deployment.yml"
-                        sh "${comandossh} sed -i 's~${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}~$container_images~g' ${clonerepo_argo}/${argocd_gi}/deployment.yml"
+                        sh "${comandossh} mv ${clonerepo_argo}/deployment.yml_ORIGINAL ${clonerepo_argo}/deployment.yml"
+                        sh "${comandossh} sed -i 's~${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}~$container_images~g' ${clonerepo_argo}/deployment.yml"
 
                         echo 'Subiendo cambios del yml...'
 
-                        sh "${comandossh} ${clonerepo_argo}/${argocd_git}/; git add ."
-                        sh "${comandossh} ${clonerepo_argo}/${argocd_git}/; git commit -m 'Instalar version ${BUILD_NUMBER}'"
-                        sh "${comandossh} git push ${clonerepo_argo}/${argocd_git}/deployment.yml"
+                        sh "${comandossh} ${clonerepo_argo}/; git add ."
+                        sh "${comandossh} ${clonerepo_argo}/; git commit -m 'Instalar version ${BUILD_NUMBER}'"
+                        sh "${comandossh} git push ${clonerepo_argo}/deployment.yml"
 
                     }
                     if("${ms_name}" == "Products" && "${branchName}" == "Prod") {
