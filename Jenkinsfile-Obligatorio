@@ -78,8 +78,9 @@ pipeline {
                     
                     gitCredentials = "obligatorio-git"
                     repoUrl = "${GIT_URL}"
-                    clonerepo = "${WORKSPACE}/${ms_name}"
-                    clonerepo_argo = "${WORKSPACE}/${argocd_name}"
+                    Ec2_WORKSPACE = /home/jenkins_home/workspace
+                    clonerepo = "${Ec2_WORKSPACE}/${ms_name}"
+                    clonerepo_argo = "${Ec2_WORKSPACE}/${argocd_name}"
                     //Ec2_WORKSPACE = "/home/jenkins_home/${ms_name}"
                     //Ec2_WORKSPACE = "/home/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
                     //clonerepo = "/var/jenkins_home/workspace/products-service-example/products"
