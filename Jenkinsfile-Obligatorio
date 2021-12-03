@@ -274,6 +274,9 @@ pipeline {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
                         sh "${comandossh} rm -rf ${clonerepo}"
+                        sh "${comandossh} rm -rf ${clonerepo_argo}"
+                        sh "${comandossh} rm -rf ${clonerepo_argo}/deployment.yml"
+
                         sh "${comandossh} git clone -b ${branchName} ${argocd_product_repo} ${clonerepo_argo}"
 
                         echo 'Remplazando variables en el yml...'
