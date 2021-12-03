@@ -273,8 +273,8 @@ pipeline {
                     if("${ms_name}" == "Products" && "${branchName}" == "Test") { 
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "rm -rf ${clonerepo}"
-                        sh "git clone -b ${branchName} ${argocd_product_repo} ${clonerepo_argo}"
+                        sh "${comandossh} rm -rf ${clonerepo}"
+                        sh "${comandossh} git clone -b ${branchName} ${argocd_product_repo} ${clonerepo_argo}"
 
                         echo 'Remplazando variables en el yml...'
 
