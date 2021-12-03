@@ -32,7 +32,6 @@ pipeline {
                     if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git") { 
                        ms_jar = "orders-service-example.jar"
                        ms_name = "Orders"
-                       argocd_name = "Orders_ArgoCD"
                        ECR_NAME = "orders-service"
                        argocd_git = "argocd_orders-service-example"
                        registry = ""
@@ -41,7 +40,6 @@ pipeline {
                     if("${GIT_URL}" == "https://github.com/devopsort/products-service-example.git") { 
                        ms_jar = "products-service-example.jar"
                        ms_name = "Products"
-                       argocd_name = "Products_ArgoCD"
                        ECR_NAME = "products-service"
                        argocd_git = "argocd_products-service-example"
                        registry = "473718918692.dkr.ecr.us-east-1.amazonaws.com"
@@ -50,7 +48,6 @@ pipeline {
                     if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git") { 
                        ms_jar = "shipping-service-example.jar"
                        ms_name = "Shipping"
-                       argocd_name = "Shipping_ArgoCD"
                        ECR_NAME = "shipping-service"
                        argocd_git = "argocd_shipping-service-example"
                        registry = ""
@@ -59,7 +56,6 @@ pipeline {
                     if("${GIT_URL}" == "https://github.com/devopsort/payments-service-example.git") { 
                        ms_jar = "payments-service-example.jar"
                        ms_name = "Payments"
-                       argocd_name = "Payments_ArgoCD"
                        ECR_NAME = "payments-service"
                        argocd_git = "argocd_payments-service-example"
                        registry = ""
@@ -80,7 +76,7 @@ pipeline {
                     repoUrl = "${GIT_URL}"
                     Ec2_WORKSPACE = "/home/jenkins_home/workspace"
                     clonerepo = "${Ec2_WORKSPACE}/${ms_name}"
-                    clonerepo_argo = "${Ec2_WORKSPACE}/${argocd_name}"
+                    clonerepo_argo = "${Ec2_WORKSPACE}/${ms_name}"
                     //Ec2_WORKSPACE = "/home/jenkins_home/${ms_name}"
                     //Ec2_WORKSPACE = "/home/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
                     //clonerepo = "/var/jenkins_home/workspace/products-service-example/products"
@@ -282,14 +278,14 @@ pipeline {
 
                         echo 'Remplazando variables en el yml...'
 
-                        sh "${comandossh} mv ${clonerepo_argo}/${argocd_git}/products-service-example.yml_ORIGINAL ${clonerepo_argo}/${argocd_git}/products-service-example.yml"
-                        sh "${comandossh} sed -i 's~${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}~$container_images~g' ${clonerepo_argo}/${argocd_gi}/products-service-example.yml"
+                        sh "${comandossh} mv ${clonerepo_argo}/${argocd_git}/deployment.yml_ORIGINAL ${clonerepo_argo}/${argocd_git}/deployment.yml"
+                        sh "${comandossh} sed -i 's~${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}~$container_images~g' ${clonerepo_argo}/${argocd_gi}/deployment.yml"
 
                         echo 'Subiendo cambios del yml...'
 
                         sh "${comandossh} ${clonerepo_argo}/${argocd_git}/; git add ."
                         sh "${comandossh} ${clonerepo_argo}/${argocd_git}/; git commit -m 'Instalar version ${BUILD_NUMBER}'"
-                        sh "${comandossh} git push ${clonerepo_argo}/${argocd_git}/products-service-example.yml"
+                        sh "${comandossh} git push ${clonerepo_argo}/${argocd_git}/deployment.yml"
 
                     }
                     if("${ms_name}" == "Products" && "${branchName}" == "Prod") {
