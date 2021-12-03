@@ -155,7 +155,7 @@ pipeline {
                         
                         echo "Building the docker Microservicio Products Test"
                         sh "${comandossh} '${login_registry}'"
-                        sh "${comandossh} 'cd ${clonerepo}; sudo docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} .'"
+                        sh "${comandossh} \"cd ${clonerepo}; sudo docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} ."\ "
                         
                         echo "Building completed ....."
                         
