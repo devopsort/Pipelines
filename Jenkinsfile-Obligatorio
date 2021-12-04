@@ -285,7 +285,7 @@ pipeline {
                         echo 'Remplazando variables en el yml...'
 
                         sh "${comandossh} cp -rf ${clonerepo_argo}/deployment.yml_ORIGINAL ${clonerepo_argo}/deployment.yml"
-                        sh "${comandossh} sed -i 's~$container_images~${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}~g' ${clonerepo_argo}/deployment.yml"
+                        sh "${comandossh} sed -i 's~${container_images}~${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}~g' ${clonerepo_argo}/deployment.yml"
 
                         echo 'Subiendo cambios del yml...'
 
