@@ -86,8 +86,12 @@ pipeline {
 
         stage('CloneRepo') {
             steps {
+                File = fileExists ${clonerepo}
+                if(File ) {
+                    sh "${comandossh} mkdir ${clonerepo}"
+                }
                 echo 'Pulling...' + branchName
-                //sh "${comandossh} rm -rf ${clonerepo}"
+                sh "${comandossh} rm -rf ${clonerepo}"
                 sh "${comandossh} git clone -b ${branchName} ${repoUrl} ${clonerepo}"
             
             }
