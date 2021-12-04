@@ -87,7 +87,7 @@ pipeline {
         stage('CloneRepo') {
             steps {
                 File = fileExists ${clonerepo}
-                if(File ) {
+                if("${File}") {
                     sh "${comandossh} mkdir ${clonerepo}"
                 }
                 echo 'Pulling...' + branchName
