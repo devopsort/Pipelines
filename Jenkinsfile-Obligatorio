@@ -286,11 +286,11 @@ pipeline {
 
                         echo 'Subiendo cambios del yml...'
 
-                        sh "${comandossh} cd ${clonerepo_argo}/; git config --global user.email \"admin@admin.com\"" 
-                        sh "${comandossh} cd ${clonerepo_argo}/; git config --global user.name \"devopsort\""
+                        //sh "${comandossh} cd ${clonerepo_argo}/; git config --global user.email \"admin@admin.com\"" 
+                        //sh "${comandossh} cd ${clonerepo_argo}/; git config --global user.name \"devopsort\""
                         sh "${comandossh} cd ${clonerepo_argo}/; git add ."
-                        sh "${comandossh} cd ${clonerepo_argo}/; git commit -m 'Instalar version ${BUILD_NUMBER}'"
-                        sh "${comandossh} git push"
+                        sh "${comandossh} cd ${clonerepo_argo}/; git commit -m \"Instalar version ${BUILD_NUMBER}\""
+                        sh "${comandossh} cd ${clonerepo_argo}/; echo \"${gitCredentials}\" | git push"
 
                     }
                     if("${ms_name}" == "Products" && "${branchName}" == "Prod") {
