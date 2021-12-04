@@ -87,9 +87,8 @@ pipeline {
         stage('CloneRepo') {
             steps {
                 echo 'Pulling...' + branchName
-                sh "${comandossh} rm -rf ${clonerepo}"
+                //sh "${comandossh} rm -rf ${clonerepo}"
                 sh "${comandossh} git clone -b ${branchName} ${repoUrl} ${clonerepo}"
-                //git branch: "${branchName}", credentialsId: "${gitCredentials}", url: "${repoUrl}"
             
             }
         }
