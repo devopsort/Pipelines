@@ -89,7 +89,8 @@ pipeline {
             steps {
                 script {
                     file = fileExists "${clonerepo}"
-                    if("!${file}") {
+                    echo "${file}"
+                    if(!"${file}") {
                         sh "${comandossh} mkdir ${clonerepo}"
                     }
                     echo 'Pulling...' + branchName
