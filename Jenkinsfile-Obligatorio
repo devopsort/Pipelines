@@ -44,7 +44,7 @@ pipeline {
                        ECR_NAME = "products-service"
                        argocd_git = "argocd_products-service-example"
                        registry = "407689691491.dkr.ecr.us-east-1.amazonaws.com"
-                       login_registry = "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"
+                       login_registry = "aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 407689691491.dkr.ecr.us-east-1.amazonaws.com"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git") { 
                        ms_jar = "shipping-service-example.jar"
