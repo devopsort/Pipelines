@@ -9,7 +9,8 @@ pipeline {
                     PROFILE_AWS_KEY_ID = "qweqweqweqwe"
                     PROFILE_AWS_SECRET = "qweqeqweqweqwe"
                     load ("/tmp/variables.var")
-                    comandossh = "ssh -i /tmp/Ec2-ssh-key.pem ec2-user@JenkinsDockerTF sudo "
+                    comandossh = "ssh -i /tmp/keyssh-devops-curso.pem ec2-user@JenkinsDockerTF sudo "
+                    //comandossh = "ssh -i /tmp/Ec2-ssh-key.pem ec2-user@JenkinsDockerTF sudo "
                     argocd_product_repo = "https://github.com/devopsort/argocd_products-service-example.git"
                     argocd_orders_repo = "https://github.com/devopsort/argocd_orders-service-example.git"
                     argocd_shipping_repo = "https://github.com/devopsort/argocd_shipping-service-example.git"
