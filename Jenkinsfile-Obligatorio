@@ -285,7 +285,6 @@ pipeline {
                         echo 'Subiendo cambios del yml...'
 
                         stage('Git Push'){
-                            steps{
                                 script{
                                     GIT_CREDS = credentials(${gitCredentials})
                                     sh '''
@@ -294,7 +293,6 @@ pipeline {
                                         ${comandossh} git commit -m "Instalar version ${BUILD_NUMBER}"
                                         ${comandossh} git push https://devopsort:Devops.ort123@${GIT_URL} ${branchName}
                                     '''
-                                }
                             }
                         }
 
