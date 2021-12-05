@@ -86,7 +86,7 @@ pipeline {
         stage('CloneRepo') {
             steps {
                 script {
-                    file = fileExists "${comandossh} ${clonerepo}"
+                    file = fileExists "/var/jenkins_home/workspace/${ms_name}"
                     echo "${file}"
                     if("${file}" == "true") {
                         sh "${comandossh} rm -rf ${clonerepo}" 
