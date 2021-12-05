@@ -288,9 +288,10 @@ pipeline {
 
                         //sh "${comandossh} cd ${clonerepo_argo}/; git config --global user.email \"admin@admin.com\"" 
                         //sh "${comandossh} cd ${clonerepo_argo}/; git config --global user.name \"devopsort\""
-                        sh "${comandossh} cd ${clonerepo_argo}/; git add ."
-                        sh "${comandossh} cd ${clonerepo_argo}/; git commit -m \"Instalar version ${BUILD_NUMBER}\""
-                        sh "${comandossh} cd ${clonerepo_argo}/; echo \"${gitCredentials}\" | git push"
+                        //sh "${comandossh} cd ${clonerepo_argo}/; git add ."
+                        //sh "${comandossh} cd ${clonerepo_argo}/; git commit -m \"Instalar version ${BUILD_NUMBER}\""
+                        //sh "${comandossh} cd ${clonerepo_argo}/; echo \"${gitCredentials}\" | git push"
+                        sh "${comandossh} cd ${clonerepo_argo}/; sh /home/jenkins_home/workspace/Script/git.sh"
 
                     }
                     if("${ms_name}" == "Products" && "${branchName}" == "Prod") {
