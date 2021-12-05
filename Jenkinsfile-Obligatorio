@@ -287,12 +287,12 @@ pipeline {
                         stage('Git Push'){
                                 script{
                                     GIT_CREDS = credentials('obligatorio-git')
-                                    sh "
+                                    sh ''''
                                         ${comandossh} cd ${clonerepo}/ 
                                         ${comandossh} cd ${clonerepo}/; git add .
                                         ${comandossh} cd ${clonerepo}/; git commit -m "Instalar version ${BUILD_NUMBER}"
                                         ${comandossh} cd ${clonerepo}/; git push https://devopsort:Devops.ort123@${GIT_URL} ${branchName}
-                                       "
+                                       ''''
                             }
                         }
 
