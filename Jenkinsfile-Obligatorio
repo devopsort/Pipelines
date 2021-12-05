@@ -277,11 +277,11 @@ pipeline {
                             sh "${comandossh} rm -rf ${clonerepo}" 
                         }
 
-                        //sh "${comandossh} git clone -b ${branchName} ${argocd_product_repo} ${clonerepo}"
+                        sh "${comandossh} git clone -b ${branchName} ${argocd_product_repo} ${clonerepo}"
 
-                        //echo 'Remplazando variables en el yml...'
+                        echo 'Remplazando variables en el yml...'
 
-                        //sh "${comandossh} cp -rf ${clonerepo}/deployment.yml_ORIGINAL ${clonerepo}/deployment.yml"
+                        sh "${comandossh} cp -rf ${clonerepo}/deployment.yml_ORIGINAL ${clonerepo}/deployment.yml"
                         //sh "${comandossh} sed -i 's~${container_images}~${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}~g' ${clonerepo}/deployment.yml"
 
                         echo 'Subiendo cambios del yml...'
@@ -289,11 +289,6 @@ pipeline {
                         stage('Git Push'){
                                 script{
                                     withCredentials([usernamePassword(credentialsId: 'obligatorio-git', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                                            sh "${comandossh} git clone -b ${branchName} ${argocd_product_repo} ${clonerepo}"
-
-                                            echo 'Remplazando variables en el yml...'
-
-                                            sh "${comandossh} cp -rf ${clonerepo}/deployment.yml_ORIGINAL ${clonerepo}/deployment.yml"
                                             sh "${comandossh} cd ${clonerepo}, git add ."
                                             sh "git commit -m \"Instalar version ${BUILD_NUMBER}\""
                                             sh "git push https://${USER}:${PASS}@${argocd_product_repo} ${branchName}"
