@@ -290,8 +290,7 @@ pipeline {
                                 script{
                                     withCredentials([usernamePassword(credentialsId: 'obligatorio-git', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                                             sh "${comandossh} git clone -b ${branchName} ${argocd_product_repo} ${clonerepo}"
-                                            echo "${USER}"
-                                            echo "${PASS}"
+
                                             echo 'Remplazando variables en el yml...'
 
                                             sh "${comandossh} cp -rf ${clonerepo}/deployment.yml_ORIGINAL ${clonerepo}/deployment.yml"
