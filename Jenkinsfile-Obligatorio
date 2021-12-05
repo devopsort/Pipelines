@@ -280,19 +280,19 @@ pipeline {
                         echo 'Remplazando variables en el yml...'
 
                         sh "${comandossh} cp -rf ${clonerepo}/deployment.yml_ORIGINAL ${clonerepo}/deployment.yml"
-                        //sh "${comandossh} sed -i 's~"${container_images}"~"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}"~g' ${clonerepo}/deployment.yml"
+                        //sh "sed -i 's~"${container_images}"~"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}"~g' ${clonerepo}/deployment.yml"
 
                         echo 'Subiendo cambios del yml...'
 
                         stage('Git Push'){
                                 script{
                                     GIT_CREDS = credentials('obligatorio-git')
-                                    sh '''
+                                    sh "
                                         ${comandossh} cd ${clonerepo}/ 
-                                        ${comandossh} git add .
-                                        ${comandossh} git commit -m "Instalar version ${BUILD_NUMBER}"
-                                        ${comandossh} git push https://devopsort:Devops.ort123@${GIT_URL} ${branchName}
-                                    '''
+                                        ${comandossh} cd ${clonerepo}/; git add .
+                                        ${comandossh} cd ${clonerepo}/; git commit -m "Instalar version ${BUILD_NUMBER}"
+                                        ${comandossh} cd ${clonerepo}/; git push https://devopsort:Devops.ort123@${GIT_URL} ${branchName}
+                                       "
                             }
                         }
 
