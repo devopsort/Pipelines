@@ -86,7 +86,7 @@ pipeline {
         stage('CloneRepo') {
             steps {
                 script {
-                    file = fileExists "${clonerepo}"
+                    file = fileExists "${comandossh} ${clonerepo}"
                     echo "${file}"
                     if("${file}" == "true") {
                         sh "${comandossh} rm -rf ${clonerepo}" 
