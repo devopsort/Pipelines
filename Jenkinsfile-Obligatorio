@@ -73,7 +73,7 @@ pipeline {
                     sh "${comandossh} mv /home/ec2-user/credentials /home/ec2-user/.aws/"
                     */
                     
-                    gitCredentials = "obligatorio-git"
+                    //gitCredentials = "obligatorio-git"
                     repoUrl = "${GIT_URL}"
                     Ec2_WORKSPACE = "/home/jenkins_home/workspace"
                     clonerepo = "${Ec2_WORKSPACE}/${ms_name}"
@@ -286,7 +286,7 @@ pipeline {
 
                         stage('Git Push'){
                                 script{
-                                    GIT_CREDS = credentials(${gitCredentials})
+                                    GIT_CREDS = credentials('obligatorio-git')
                                     sh '''
                                         ${comandossh} cd ${clonerepo}/ 
                                         ${comandossh} git add .
