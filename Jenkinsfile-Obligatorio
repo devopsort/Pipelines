@@ -294,7 +294,7 @@ pipeline {
                                             echo 'Remplazando variables en el yml...'
 
                                             sh "${comandossh} cp -rf ${clonerepo}/deployment.yml_ORIGINAL ${clonerepo}/deployment.yml"
-                                            sh "${comandossh} git add ."
+                                            sh "${comandossh} cd ${clonerepo}, git add ."
                                             sh "git commit -m \"Instalar version ${BUILD_NUMBER}\""
                                             sh "git push https://${USER}:${PASS}@${argocd_product_repo} ${branchName}"
                                 } 
