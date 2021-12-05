@@ -87,12 +87,10 @@ pipeline {
             steps {
                 script {
                     file = fileExists "${clonerepo}"
-                    echo "${file}"
-                    //if("${file}" == "false") {
-                    //    sh "${comandossh} mkdir ${clonerepo}"
-                    //}
+                    if("${file}" == "true") {
+                        sh "${comandossh} rm -rf ${clonerepo}"
+                    }
                     echo 'Pulling...' + branchName
-                    sh "${comandossh} rm -rf ${clonerepo}"
                     sh "${comandossh} git clone -b ${branchName} ${repoUrl} ${clonerepo}"
                 }
             }
