@@ -250,22 +250,26 @@ pipeline {
                 script {
                     if("${ms_name}" == "Orders" && "${branchName}" == "Dev") {
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
                         
                     } 
                     if("${ms_name}" == "Orders" && "${branchName}" == "Test") { 
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                     } 
                     if("${ms_name}" == "Orders" && "${branchName}" == "Prod") { 
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                     } 
                     if("${ms_name}" == "Products" && "${branchName}" == "Dev") {
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                     } 
                     if("${ms_name}" == "Products" && "${branchName}" == "Test") { 
@@ -294,39 +298,46 @@ pipeline {
                     }
                     if("${ms_name}" == "Products" && "${branchName}" == "Prod") {
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Shipping" && "${branchName}" == "Dev") {
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Shipping" && "${branchName}" == "Test") {
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Shipping" && "${branchName}" == "Prod") {
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Payments" && "${branchName}" == "Dev") {
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Payments" && "${branchName}" == "Test") {
                         
-                        
+                        echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Payments" && "${branchName}" == "Prod") {
                         
-                       
+                       echo 'Pulling Repo ArgoCD...' + branchName
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                   
                     }
-
                 }
             }
         }
