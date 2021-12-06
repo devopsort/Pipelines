@@ -72,11 +72,9 @@ pipeline {
                     sh "${comandossh} mv /home/ec2-user/credentials /home/ec2-user/.aws/"
                     */
                     
-                    //gitCredentials = "obligatorio-git"
                     repoUrl = "${GIT_URL}"
                     Ec2_WORKSPACE = "/home/jenkins_home/workspace"
                     clonerepo = "${Ec2_WORKSPACE}/${ms_name}"
-                    //Ec2_WORKSPACE = "/home/lib/docker/volumes/jenkins_home/_data/workspace/Obligatorio/products"
                 }
             }
         }
@@ -251,91 +249,73 @@ pipeline {
                     if("${ms_name}" == "Orders" && "${branchName}" == "Dev") {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
                         
                     } 
                     if("${ms_name}" == "Orders" && "${branchName}" == "Test") { 
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     } 
                     if("${ms_name}" == "Orders" && "${branchName}" == "Prod") { 
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     } 
                     if("${ms_name}" == "Products" && "${branchName}" == "Dev") {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     } 
                     if("${ms_name}" == "Products" && "${branchName}" == "Test") { 
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
-
-                        //stage('Git Push'){
-                        //        script{
-                        //            GIT_CREDS = credentials('obligatorio-git')
-                       //                 sh "${comandossh} cd ${clonerepo}/; git add ."
-                       //                 sh "${comandossh} cd ${clonerepo}/; git commit -m \"Instalar version ${BUILD_NUMBER}\""
-                       //                 sh "${comandossh} cd ${clonerepo}/; git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@${GIT_URL} ${branchName}"
-                       //                
-                       //     }
-                       // }
-
-
-                        //sh "${comandossh} cd ${clonerepo}/; git config --global user.email \"admin@admin.com\"" 
-                        //sh "${comandossh} cd ${clonerepo}/; git config --global user.name \"devopsort\""
-                        //sh "${comandossh} cd ${clonerepo}/; git add ."
-                        //sh "${comandossh} cd ${clonerepo}/; git commit -m \"Instalar version ${BUILD_NUMBER}\""
-                        //sh "${comandossh} cd ${clonerepo}/; echo \"${gitCredentials}\" | git push"
-                        //sh "${comandossh} cd ${clonerepo}/; sh /home/jenkins_home/workspace/Script/git.sh"
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Products" && "${branchName}" == "Prod") {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Shipping" && "${branchName}" == "Dev") {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Shipping" && "${branchName}" == "Test") {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Shipping" && "${branchName}" == "Prod") {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Payments" && "${branchName}" == "Dev") {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Payments" && "${branchName}" == "Test") {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
 
                     }
                     if("${ms_name}" == "Payments" && "${branchName}" == "Prod") {
                         
                        echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
                    
                     }
                 }
