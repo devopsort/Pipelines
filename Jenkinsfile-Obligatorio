@@ -275,7 +275,7 @@ pipeline {
                     if("${ms_name}" == "Products" && "${branchName}" == "Test") { 
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
-                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
+                        sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"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\" \"Instalar version ${BUILD_NUMBER}\" \"devopsort\""
 
                         //stage('Git Push'){
                         //        script{
