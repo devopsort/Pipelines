@@ -4,10 +4,6 @@ pipeline {
         stage("Init") {
             steps {
                 script {
-                    PROFILE_NAME = "[default]"     
-                    PROFILE_AWS_ACCES_KEY = "qwewqeqe"
-                    PROFILE_AWS_KEY_ID = "qweqweqweqwe"
-                    PROFILE_AWS_SECRET = "qweqeqweqweqwe"
                     load ("/tmp/variables.var")
                     comandossh = "ssh -i /tmp/Ec2-ssh-key.pem -oStrictHostKeyChecking=no ec2-user@JenkinsDockerTF sudo "
                     argocd_product_repo = "https://github.com/devopsort/argocd_products-service-example.git"
@@ -61,16 +57,6 @@ pipeline {
                        registry = "473718918692.dkr.ecr.us-east-1.amazonaws.com"
                        login_registry = "aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 473718918692.dkr.ecr.us-east-1.amazonaws.com"
                     }
-                    /*
-                    sh "${comandossh} rm -rf  /home/ec2-user/.aws/"
-                    sh "${comandossh} mkdir -p /home/ec2-user/.aws/"
-                    sh "${comandossh} touch /home/ec2-user/credentials"
-                    sh "${comandossh} 'echo ${PROFILE_NAME} >> /home/ec2-user/credentials'"
-                    sh "${comandossh} 'echo ${PROFILE_AWS_ACCES_KEY} >> /home/ec2-user/credentials'"
-                    sh "${comandossh} 'echo ${PROFILE_AWS_KEY_ID} >> /home/ec2-user/credentials'"
-                    sh "${comandossh} 'echo ${PROFILE_AWS_SECRET} >> /home/ec2-user/credentials'"
-                    sh "${comandossh} mv /home/ec2-user/credentials /home/ec2-user/.aws/"
-                    */
                     
                     repoUrl = "${GIT_URL}"
                     Ec2_WORKSPACE = "/home/jenkins_home/workspace"
