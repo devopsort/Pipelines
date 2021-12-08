@@ -25,37 +25,34 @@ pipeline {
                        IMAGEN_TAG = "prod"
                        version = "${BUILD_NUMBER}"
                     }
+
+                    //Estos datos no cambian entre los diferentes repos
+                    registry = "473718918692.dkr.ecr.us-east-1.amazonaws.com"
+                    login_registry = "aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 473718918692.dkr.ecr.us-east-1.amazonaws.com"
+
                     if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git") { 
                        ms_jar = "orders-service-example.jar"
                        ms_name = "Orders"
                        ECR_NAME = "orders-service"
                        argocd_git = "argocd_orders-service-example"
-                       registry = ""
-                       login_registry = ""
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/products-service-example.git") { 
                        ms_jar = "products-service-example.jar"
                        ms_name = "Products"
                        ECR_NAME = "products-service"
                        argocd_git = "argocd_products-service-example"
-                       registry = "473718918692.dkr.ecr.us-east-1.amazonaws.com"
-                       login_registry = "aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 473718918692.dkr.ecr.us-east-1.amazonaws.com"
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/shipping-service-example.git") { 
                        ms_jar = "shipping-service-example.jar"
                        ms_name = "Shipping"
                        ECR_NAME = "shipping-service"
                        argocd_git = "argocd_shipping-service-example"
-                       registry = ""
-                       login_registry = ""
                     }
                     if("${GIT_URL}" == "https://github.com/devopsort/payments-service-example.git") { 
                        ms_jar = "payments-service-example.jar"
                        ms_name = "Payments"
                        ECR_NAME = "payments-service"
                        argocd_git = "argocd_payments-service-example"
-                       registry = "473718918692.dkr.ecr.us-east-1.amazonaws.com"
-                       login_registry = "aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 473718918692.dkr.ecr.us-east-1.amazonaws.com"
                     }
                     
                     repoUrl = "${GIT_URL}"
@@ -82,6 +79,18 @@ pipeline {
         stage("Build") {
             steps {
                 script {
+
+                        echo "Building the docker Microservicio ${ms_name} ${branchName}"
+                        sh "${comandossh} '${login_registry}'"
+                        sh "${comandossh} 'docker build --build-arg JAR_FILE=${ms_jar} -t ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG} ${clonerepo}/' "
+                        
+                        echo "Building completed ....."
+                        
+                        echo "Pushing the docker images ...."
+                        sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
+
+
+                    /*
                     if("${ms_name}" == "Orders" && "${branchName}" == "Dev") {
                         
                         echo "Building the docker Microservicio Orders Dev"
@@ -225,6 +234,7 @@ pipeline {
                         echo "Pushing the docker images ...."
                         sh "${comandossh} 'docker push ${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}'"
                     }
+                    */
                 }
             }
         }
@@ -232,6 +242,11 @@ pipeline {
         stage("Deploy Microservicio") {
             steps {
                 script {
+
+                    echo 'Pulling Repo ArgoCD...' + branchName
+                    sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
+
+                    /*
                     if("${ms_name}" == "Orders" && "${branchName}" == "Dev") {
                         
                         echo 'Pulling Repo ArgoCD...' + branchName
@@ -304,6 +319,8 @@ pipeline {
                         sh "${comandossh} bash /home/ec2-user/script_deploy.sh \"github.com/devopsort\" \"${argocd_git}\" \"${branchName}\" \"${registry}/${ECR_NAME}:${version}_${IMAGEN_TAG}\" \"Instalar_version_${BUILD_NUMBER}\" \"devopsort\""
                    
                     }
+
+                    */
                 }
             }
         }
