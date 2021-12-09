@@ -27,8 +27,8 @@ pipeline {
                     }
 
                     //Estos datos no cambian entre los diferentes repos
-                    registry = "473718918692.dkr.ecr.us-east-1.amazonaws.com"
-                    login_registry = "aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 473718918692.dkr.ecr.us-east-1.amazonaws.com"
+                    registry = "794892305647.dkr.ecr.us-east-1.amazonaws.com"
+                    login_registry = "aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 794892305647.dkr.ecr.us-east-1.amazonaws.com"
 
                     if("${GIT_URL}" == "https://github.com/devopsort/orders-service-example.git") { 
                        ms_jar = "orders-service-example.jar"
